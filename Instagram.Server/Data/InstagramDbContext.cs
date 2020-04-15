@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Instagram.Server.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Instagram.Server.Data
 {
-    public class InstagramDbContext : IdentityDbContext
+    public class InstagramDbContext : IdentityDbContext<User>
     {
         public InstagramDbContext(DbContextOptions<InstagramDbContext> options)
             : base(options)
