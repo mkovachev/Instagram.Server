@@ -64,11 +64,6 @@ namespace Instagram.Server
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDatabaseErrorPage();
-            }
-
             app.UseRouting();
 
             app.UseCors(options => options
