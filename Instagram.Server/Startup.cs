@@ -24,8 +24,8 @@ namespace Instagram.Server
                 .AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<InstagramDbContext>();
 
-            var appSettingsSection = this.Configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appSettingsSection);
+            var appSettings = this.Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettings);
 
             services.AddControllers();
         }
