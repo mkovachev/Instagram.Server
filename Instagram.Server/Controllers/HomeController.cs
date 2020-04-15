@@ -3,10 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Instagram.Server.Controllers
 {
-
-    [ApiController]
-    [Route("controller")]
-    public class HomeController : ControllerBase
+    public class HomeController : ApiBaseController
     {
         //[Authorize]
         public IActionResult Get()
