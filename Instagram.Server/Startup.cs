@@ -24,7 +24,14 @@ namespace Instagram.Server
                 options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
             services
-                .AddDefaultIdentity<IdentityUser>()
+                .AddDefaultIdentity<IdentityUser>(options =>
+                {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredLength = 6;
+                })
                 .AddEntityFrameworkStores<InstagramDbContext>();
 
             // jwt settings
