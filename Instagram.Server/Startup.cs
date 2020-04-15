@@ -1,4 +1,5 @@
 using Instagram.Server.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Instagram.Server
 {
@@ -24,8 +27,30 @@ namespace Instagram.Server
                 .AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<InstagramDbContext>();
 
-            var appSettings = this.Configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appSettings);
+            // jwt settings
+            var appSettingsConfig = this.Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsConfig);
+
+            // jwt configure authentication
+            var appSettings = appSettingsConfig.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
             services.AddControllers();
         }
@@ -36,7 +61,7 @@ namespace Instagram.Server
             {
                 app.UseDatabaseErrorPage();
             }
-    
+
             app.UseRouting();
 
             app.UseAuthentication();
