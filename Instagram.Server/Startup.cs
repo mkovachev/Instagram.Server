@@ -18,11 +18,14 @@ namespace Instagram.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<InstagramDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
             services
                 .AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<InstagramDbContext>();
+
+            var appSettingsSection = this.Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
 
             services.AddControllers();
         }
