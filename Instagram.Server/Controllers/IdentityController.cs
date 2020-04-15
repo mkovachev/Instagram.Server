@@ -23,6 +23,8 @@ namespace Instagram.Server.Controllers
             this.appSettings = appSettings;
         }
 
+        [HttpPost]
+        [Route(nameof(Register))]
         public async Task<ActionResult> Register(RegisterRequestModel model)
         {
             var user = new User
