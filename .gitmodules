@@ -1,0 +1,7 @@
+[submodule "Instagram"]
+	path = Instagram
+	url = https://github.com/mkovachev/Instagram
+	branch = Server
+[submodule "Server"]
+	path = Server
+	url = https://github.com/mkovachev/Instagram
