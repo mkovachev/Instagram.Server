@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Instagram.Server.Controllers
 {
-    public class HomeController : ApiBaseController
+    public class HomeController : ApiController
     {
-        //[Authorize]
+        [Authorize]
         public IActionResult Get()
         {
-            return Ok();
+            return Ok("works");
         }
     }
 }

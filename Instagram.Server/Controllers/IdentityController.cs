@@ -2,6 +2,7 @@
 using Instagram.Server.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,15 +13,15 @@ using System.Threading.Tasks;
 
 namespace Instagram.Server.Controllers
 {
-    public class IdentityController : ApiBaseController
+    public class IdentityController : ApiController
     {
         private readonly UserManager<User> userManager;
         private readonly AppSettings appSettings;
 
-        public IdentityController(UserManager<User> userManager, AppSettings appSettings)
+        public IdentityController(UserManager<User> userManager, IOptions<AppSettings> appSettings)
         {
             this.userManager = userManager;
-            this.appSettings = appSettings;
+            this.appSettings = appSettings.Value;
         }
 
         [HttpPost]
@@ -29,22 +30,25 @@ namespace Instagram.Server.Controllers
         {
             var user = new User
             {
-                Email = "user@test.com"
+                UserName = model.Email,
+                Email = model.Email
             };
 
             var result = await this.userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
-                return StatusCode((int)HttpStatusCode.Created);
+                return Ok(); //StatusCode((int)HttpStatusCode.Created);
             }
 
             return BadRequest(result.Errors);
         }
 
+        [HttpPost]
+        [Route(nameof(Login))]
         public async Task<ActionResult<string>> Login(LoginRequestModel model)
         {
-            var user = await this.userManager.FindByEmailAsync(model.Email);
+            var user = await this.userManager.FindByNameAsync(model.UserName);
 
             if (user == null)
             {

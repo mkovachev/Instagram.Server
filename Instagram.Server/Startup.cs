@@ -1,4 +1,6 @@
 using Instagram.Server.Data;
+using Instagram.Server.Data.Models;
+using Instagram.Server.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,7 +26,7 @@ namespace Instagram.Server
                 options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
             services
-                .AddDefaultIdentity<IdentityUser>(options =>
+                .AddDefaultIdentity<User>(options =>
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
@@ -34,11 +36,9 @@ namespace Instagram.Server
                 })
                 .AddEntityFrameworkStores<InstagramDbContext>();
 
-            // jwt settings
             var appSettingsConfig = this.Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsConfig);
 
-            // jwt configure authentication
             var appSettings = appSettingsConfig.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
@@ -64,6 +64,11 @@ namespace Instagram.Server
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //if (env.IsDevelopment())
+            //{
+                app.UseDeveloperExceptionPage();
+            //}
+
             app.UseRouting();
 
             app.UseCors(options => options
@@ -78,6 +83,8 @@ namespace Instagram.Server
             {
                 endpoints.MapControllers();
             });
+
+            app.ApplyMigrations();
         }
     }
 }
