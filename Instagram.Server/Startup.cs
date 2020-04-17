@@ -59,7 +59,7 @@ namespace Instagram.Server
                 };
             });
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

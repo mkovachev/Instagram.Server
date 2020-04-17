@@ -8,7 +8,7 @@ namespace Instagram.Server.Data.Models
         public int Id { get; set; }
 
         [MaxLength(MaxDescriptionLenght)]
-        public int Description { get; set; }
+        public string Description { get; set; }
 
         //[Required]
         public string ImageUrl { get; set; }

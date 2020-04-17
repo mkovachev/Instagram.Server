@@ -11,8 +11,12 @@ namespace Instagram.Server.Data
         {
         }
 
+        public DbSet<Item> Items { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Item>().ToTable("Items");
+
             builder
                 .Entity<User>()
                 .HasMany(u => u.Items)

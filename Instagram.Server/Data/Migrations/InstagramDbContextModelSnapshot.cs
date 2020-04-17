@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Instagram.Server.Data.Migrations
 {
     [DbContext(typeof(InstagramDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    partial class InstagramDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -26,8 +26,8 @@ namespace Instagram.Server.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Description")
-                        .HasColumnType("int")
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
 
                     b.Property<string>("ImageUrl")
@@ -41,7 +41,7 @@ namespace Instagram.Server.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Item");
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("Instagram.Server.Data.Models.User", b =>
