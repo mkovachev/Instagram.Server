@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static Instagram.Server.Data.DataValidator.Item;
 
 namespace Instagram.Server.Data.Models
 {
@@ -6,7 +7,7 @@ namespace Instagram.Server.Data.Models
     {
         public int Id { get; set; }
 
-        [MaxLength(1000)]
+        [MaxLength(MaxDescriptionLenght)]
         public int Description { get; set; }
 
         //[Required]

@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static Instagram.Server.Data.DataValidator.Item;
 
 namespace Instagram.Server.Models.Items
 {
     public class CreateItemRequestModel
     {
-        [MaxLength(1000)]
+        [MaxLength(MaxDescriptionLenght)]
         public int Description { get; set; }
 
         //[Required]
