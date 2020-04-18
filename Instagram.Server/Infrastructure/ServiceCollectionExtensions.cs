@@ -12,14 +12,6 @@ namespace Instagram.Server.Infrastructure
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection ConnectToSqlServer(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddDbContext<InstagramDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-            return services;
-        }
-
         public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
             services
