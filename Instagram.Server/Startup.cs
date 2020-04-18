@@ -18,7 +18,8 @@ namespace Instagram.Server
             services
                 .AddDatabase(this.Configuration)
                 .AddIdentity()
-                .AddJwtAuthentication(services.GetAppSettings(this.Configuration))
+                .AddJwtAuthentiItemion(services.GetAppSettings(this.Configuration))
+                .AddApplicationServices()
                 .AddControllers()
                 .AddNewtonsoftJson();
         }

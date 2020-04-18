@@ -4,7 +4,7 @@
     {
         public class Item
         {
-            public const int MaxDescriptionLenght = 1000;
+            public const int ItemsDescriptionMaxLength = 1000;
         }
     }
 }

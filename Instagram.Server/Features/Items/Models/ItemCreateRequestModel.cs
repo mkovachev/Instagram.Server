@@ -3,9 +3,9 @@ using static Instagram.Server.Data.DataValidator.Item;
 
 namespace Instagram.Server.Features.Items.Models
 {
-    public class CreateItemRequestModel
+    public class ItemCreateRequestModel
     {
-        [MaxLength(MaxDescriptionLenght)]
+        [MaxLength(ItemsDescriptionMaxLength)]
         public string Description { get; set; }
 
         //[Required]

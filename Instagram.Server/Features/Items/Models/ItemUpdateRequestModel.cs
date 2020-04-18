@@ -1,21 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static Instagram.Server.Data.DataValidator.Item;
 
-namespace Instagram.Server.Data.Models
+namespace Instagram.Server.Features.Items.Models
 {
-    public class Item
+    public class ItemUpdateRequestModel
     {
         public int Id { get; set; }
 
+        [Required]
         [MaxLength(ItemsDescriptionMaxLength)]
         public string Description { get; set; }
-
-        //[Required]
-        public string ImageUrl { get; set; }
-
-        [Required]
-        public string UserId { get; set; }
-
-        public User User { get; set; }
     }
 }

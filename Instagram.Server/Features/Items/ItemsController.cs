@@ -1,5 +1,4 @@
-﻿using Instagram.Server.Data;
-using Instagram.Server.Data.Models;
+﻿using Instagram.Server.Features.Items.Models;
 using Instagram.Server.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,31 +8,22 @@ namespace Instagram.Server.Features.Items
 {
     public class ItemsController : ApiController
     {
-        private readonly InstagramDbContext db;
+        private readonly IItemsService itemsService;
 
-        public ItemsController(InstagramDbContext db)
+        public ItemsController(IItemsService itemsService)
         {
-            this.db = db;
+            this.itemsService = itemsService;
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult<int>> Create(CreateItemRequestModel model)
+        public async Task<ActionResult> Create(ItemCreateRequestModel model)
         {
             var userId = this.User.GetId();
 
-            var item = new Item
-            {
-                Description = model.Description,
-                ImageUrl = model.ImageUrl,
-                UserId = userId
-            };
+            var id = await this.itemsService.Create(model.ImageUrl, model.Description, userId);
 
-            await this.db.Items.AddAsync(item);
-
-            await this.db.SaveChangesAsync();
-
-            return Created(nameof(this.Create), item.Id);
+            return Created(nameof(this.Create), id);
         }
     }
 }
