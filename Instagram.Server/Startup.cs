@@ -18,8 +18,9 @@ namespace Instagram.Server
             services
                 .AddDatabase(this.Configuration)
                 .AddIdentity()
-                .AddJwtAuthentiItemion(services.GetAppSettings(this.Configuration))
+                .AddJwtAuthentication(services.GetAppSettings(this.Configuration))
                 .AddApplicationServices()
+                .AddSwagger()
                 .AddControllers()
                 .AddNewtonsoftJson();
         }
@@ -31,7 +32,8 @@ namespace Instagram.Server
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting()
+            app.UseSwaggerUI()
+               .UseRouting()
                .UseCors(options => options.AllowAnyOrigin()
                                           .AllowAnyHeader()
                                           .AllowAnyMethod())

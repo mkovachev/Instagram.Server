@@ -25,5 +25,39 @@ namespace Instagram.Server.Features.Items
 
             return Created(nameof(this.Create), id);
         }
+
+        [HttpPut]
+        public async Task<ActionResult> Update(ItemUpdateRequestModel model)
+        {
+            var userId = this.User.GetId();
+
+            var updated = await this.itemsService.Update(
+                model.Id,
+                model.Description,
+                userId);
+
+            if (!updated)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("id")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var userId = this.User.GetId();
+
+            var deleted = await this.itemsService.Delete(id, userId);
+
+            if (!deleted)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
     }
 }
