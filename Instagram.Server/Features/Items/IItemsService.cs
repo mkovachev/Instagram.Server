@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Instagram.Server.Features.Items.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Instagram.Server.Features.Items
