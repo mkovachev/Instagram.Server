@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Instagram.Server.Infrastructure
@@ -37,10 +38,8 @@ namespace Instagram.Server.Infrastructure
 
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            var appSettingsConfig = configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appSettingsConfig);
+            var appSettings = GetAppSettings(services, configuration);
 
-            var appSettings = appSettingsConfig.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
             services
@@ -63,6 +62,14 @@ namespace Instagram.Server.Infrastructure
             });
 
             return services;
+        }
+
+        private static AppSettings GetAppSettings(this IServiceCollection services, IConfiguration configuration)
+        {
+            var appSettingsConfig = configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsConfig);
+
+            return appSettingsConfig.Get<AppSettings>();
         }
     }
 }
