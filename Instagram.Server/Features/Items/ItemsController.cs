@@ -1,12 +1,11 @@
 ﻿using Instagram.Server.Data;
 using Instagram.Server.Data.Models;
 using Instagram.Server.Infrastructure;
-using Instagram.Server.Models.Items;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Instagram.Server.Controllers
+namespace Instagram.Server.Features.Items
 {
     public class ItemsController : ApiController
     {

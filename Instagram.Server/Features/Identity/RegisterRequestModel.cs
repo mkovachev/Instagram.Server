@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Instagram.Server.Models.Identity
+namespace Instagram.Server.Features.Identity
 {
     public class RegisterRequestModel
     {

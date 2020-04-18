@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Instagram.Server.Controllers
+namespace Instagram.Server.Features
 {
     public class HomeController : ApiController
     {

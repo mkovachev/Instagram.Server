@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Instagram.Server.Controllers
+namespace Instagram.Server.Features
 {
     [ApiController]
     [Route("[controller]")]

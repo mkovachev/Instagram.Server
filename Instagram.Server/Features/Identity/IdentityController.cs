@@ -1,5 +1,4 @@
 ﻿using Instagram.Server.Data.Models;
-using Instagram.Server.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -10,7 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Instagram.Server.Controllers
+namespace Instagram.Server.Features.Identity
 {
     public class IdentityController : ApiController
     {
