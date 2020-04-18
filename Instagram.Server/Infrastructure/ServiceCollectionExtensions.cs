@@ -5,13 +5,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Instagram.Server.Infrastructure
 {
     public static class ServiceCollectionExtensions
     {
+        public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration) => services
+                                .AddDbContext<InstagramDbContext>(options => options
+                                .UseSqlServer(configuration.GetDefaultConnectionString()));
+
         public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
             services
@@ -28,10 +31,16 @@ namespace Instagram.Server.Infrastructure
             return services;
         }
 
-        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
+        public static AppSettings GetAppSettings(this IServiceCollection services, IConfiguration configuration)
         {
-            var appSettings = GetAppSettings(services, configuration);
+            var appSettingsConfig = configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsConfig);
 
+            return appSettingsConfig.Get<AppSettings>();
+        }
+
+        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, AppSettings appSettings)
+        {
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
             services
@@ -54,14 +63,6 @@ namespace Instagram.Server.Infrastructure
             });
 
             return services;
-        }
-
-        private static AppSettings GetAppSettings(this IServiceCollection services, IConfiguration configuration)
-        {
-            var appSettingsConfig = configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appSettingsConfig);
-
-            return appSettingsConfig.Get<AppSettings>();
         }
     }
 }
