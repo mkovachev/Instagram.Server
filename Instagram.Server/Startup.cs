@@ -30,22 +30,14 @@ namespace Instagram.Server
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
-
-            app.UseCors(options => options
-                                        .AllowAnyOrigin()
-                                        .AllowAnyHeader()
-                                        .AllowAnyMethod());
-
-            app.UseAuthentication();
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-
-            app.ApplyMigrations();
+            app.UseRouting()
+               .UseCors(options => options.AllowAnyOrigin()
+                                          .AllowAnyHeader()
+                                          .AllowAnyMethod())
+                .UseAuthentication()
+                .UseAuthorization()
+                .UseEndpoints(endpoints => endpoints.MapControllers())
+                .ApplyMigrations();
         }
     }
 }
