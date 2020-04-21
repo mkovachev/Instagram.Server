@@ -26,7 +26,7 @@ namespace Instagram.Server.Features.Items
                 UserId = userId
             };
 
-            await this.db.Items.AddAsync(item);
+            this.db.Add(item); //await this.db.Items.AddAsync(item);
 
             await this.db.SaveChangesAsync();
 
