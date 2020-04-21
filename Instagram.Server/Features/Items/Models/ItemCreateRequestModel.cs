@@ -8,7 +8,7 @@ namespace Instagram.Server.Features.Items.Models
         [MaxLength(ItemsDescriptionMaxLength)]
         public string Description { get; set; }
 
-        //[Required]
+        [Required]
         public string ImageUrl { get; set; }
     }
 }
